@@ -4,6 +4,7 @@ const morgan = require('morgan')
 dotenv.config({ path: './config/config.env' })
 const bootcampsRouter = require('./routes/BootcampsRoute')
 const ConnectDb = require('./config/db')
+const colors = require('colors')
 
 ConnectDb()
 
@@ -19,9 +20,9 @@ app.use('/api/v1/bootcamps', bootcampsRouter)
 
 
 const PORT = process.env.PORT || 5000
-const server = app.listen(PORT, console.log(`Server is up and running for ${process.env.NODE_ENV} mode on port ${PORT}`))
+const server = app.listen(PORT, console.log(`Server is up and running for ${process.env.NODE_ENV} mode on port ${PORT}`.yellow.bold))
 
 process.on('unhandledRejection', (err, promise) => {
-    console.log("unhandled rejection : ", err.message)
+    console.log(`Unhandled rejection ${err.message}`.red.bold)
     server.close(() => { process.exit(1) })
 })
