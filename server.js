@@ -22,6 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 //Mount routers
 app.use('/api/v1/bootcamps', bootcampsRouter)
 
+//error handler must be after controller-routes etc
 app.use(errorHandler)
 
 

@@ -1,3 +1,4 @@
+const ErrorResponse = require('../utils/errorResponse')
 const Bootcamp = require('../models/Bootcamps')
 
 // @desc Get All bootcamps
@@ -12,9 +13,7 @@ exports.GetBootcamps = async (req, res, next) => {
             data: bootcamps
         })
     } catch (error) {
-        res.status(400).json({
-            success: false
-        })
+        next(error)
     }
 }
 
@@ -27,9 +26,7 @@ exports.GetBootcamp = async (req, res, next) => {
 
         if (!bootcamp) {
             //correctly formatted object id
-            return res.status(400).json({
-                success: false
-            })
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
         }
 
         res.status(200).json({
@@ -56,9 +53,7 @@ exports.CreateBootcamp = async (req, res, next) => {
             data: bootcamp,
         })
     } catch (error) {
-        res.status(400).json({
-            success: false
-        })
+        next(error)
     }
 }
 
@@ -75,9 +70,7 @@ exports.UpdateBootcamp = async (req, res, next) => {
 
         if (!bootcamp) {
             //correctly formatted object id
-            return res.status(400).json({
-                success: false
-            })
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
         }
 
         res.status(200).json({
@@ -85,9 +78,7 @@ exports.UpdateBootcamp = async (req, res, next) => {
             data: bootcamp
         })
     } catch (error) {
-        res.status(400).json({
-            success: false
-        })
+        next(error)
     }
 
 }
@@ -101,9 +92,7 @@ exports.DeleteBootcamp = async (req, res, next) => {
 
         if (!bootcamp) {
             //correctly formatted object id
-            return res.status(400).json({
-                success: false
-            })
+            return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404))
         }
 
         res.status(200).json({
@@ -111,8 +100,6 @@ exports.DeleteBootcamp = async (req, res, next) => {
             data: {}
         })
     } catch (error) {
-        res.status(400).json({
-            success: false
-        })
+        next(error)
     }
 }
