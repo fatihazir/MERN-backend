@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const morgan = require('morgan')
 dotenv.config({ path: './config/config.env' })
 const bootcampsRouter = require('./routes/BootcampsRoute')
+const coursesRouter = require('./routes/CoursesRoute')
 const ConnectDb = require('./config/db')
 const colors = require('colors')
 
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 
 //Mount routers
 app.use('/api/v1/bootcamps', bootcampsRouter)
+app.use('/api/v1/courses', coursesRouter)
 
 //error handler must be after controller-routes etc
 app.use(errorHandler)
