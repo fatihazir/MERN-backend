@@ -7,6 +7,8 @@ const bootcampsRouter = require('./routes/BootcampsRoute')
 const coursesRouter = require('./routes/CoursesRoute')
 const ConnectDb = require('./config/db')
 const colors = require('colors')
+const fileUpload = require('express-fileupload')
+const path = require('path')
 
 ConnectDb()
 
@@ -19,6 +21,12 @@ app.use(express.json())
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
 }
+
+// File upload
+app.use(fileUpload())
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')))
 
 //Mount routers
 app.use('/api/v1/bootcamps', bootcampsRouter)
