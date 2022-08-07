@@ -5,6 +5,7 @@ const morgan = require('morgan')
 dotenv.config({ path: './config/config.env' })
 const bootcampsRouter = require('./routes/BootcampsRoute')
 const coursesRouter = require('./routes/CoursesRoute')
+const reviewsRouter = require('./routes/ReviewsRoute')
 const ConnectDb = require('./config/db')
 const colors = require('colors')
 const fileUpload = require('express-fileupload')
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 //Mount routers
 app.use('/api/v1/bootcamps', bootcampsRouter)
 app.use('/api/v1/courses', coursesRouter)
+app.use('/api/v1/reviews', reviewsRouter)
 
 //error handler must be after controller-routes etc
 app.use(errorHandler)
