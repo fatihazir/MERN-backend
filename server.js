@@ -11,6 +11,7 @@ const ConnectDb = require('./config/db')
 const colors = require('colors')
 const fileUpload = require('express-fileupload')
 const path = require('path')
+var cookieParser = require('cookie-parser')
 
 ConnectDb()
 
@@ -18,6 +19,9 @@ const app = express()
 
 //Body parser
 app.use(express.json())
+
+//Cookie parser
+app.use(cookieParser())
 
 //Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
