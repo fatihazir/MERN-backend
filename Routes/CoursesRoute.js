@@ -3,7 +3,7 @@ const { GetCourses, GetCourse, CreateCourse, UpdateCourse, DeleteCourse } = requ
 const advancedResults = require('../middlewares/AdvancedResults')
 const Course = require('../models/Course')
 
-const { Protect } = require('../middlewares/Auth')
+const { Protect, Authorize } = require('../middlewares/Auth')
 
 const router = express.Router({ mergeParams: true })
 
@@ -12,12 +12,12 @@ router.route('/')
         path: 'bootcamp',
         select: 'name description'
     }), GetCourses)
-    .post(Protect, CreateCourse);
+    .post(Protect, Authorize('publisher', 'admin'), CreateCourse);
 
 router.route('/:id')
     .get(GetCourse)
-    .put(Protect, UpdateCourse)
-    .delete(Protect, DeleteCourse)
+    .put(Protect, Authorize('publisher', 'admin'), UpdateCourse)
+    .delete(Protect, Authorize('publisher', 'admin'), DeleteCourse)
 
 module.exports = router
 
