@@ -70,3 +70,15 @@ const SendTokenResponse = (user, statusCode, res) => {
             token
         })
 }
+
+// @desc Get current logged in user
+// @route Post /api/v1/auth/me
+// @access Private
+exports.GetMe = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id)
+
+    res.status(200).json({
+        success: true,
+        data: user
+    })
+})

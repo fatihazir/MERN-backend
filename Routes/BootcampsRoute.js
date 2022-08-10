@@ -7,6 +7,8 @@ const Bootcamp = require('../models/Bootcamp')
 const courseRouter = require('./CoursesRoute')
 const reviewRouter = require('./ReviewsRoute')
 
+const { Protect } = require('../middlewares/Auth')
+
 const router = express.Router()
 
 // Re-route into other resource routers
@@ -17,13 +19,13 @@ router.route('/radius/:zipcode/:distance').get(GetBootcampsInRadius)
 
 router.route('/')
     .get(advancedResults(Bootcamp, 'courses'), GetBootcamps)
-    .post(CreateBootcamp);
+    .post(Protect, CreateBootcamp);
 
 router.route('/:id')
     .get(GetBootcamp)
-    .put(UpdateBootcamp)
-    .delete(DeleteBootcamp)
+    .put(Protect, UpdateBootcamp)
+    .delete(Protect, DeleteBootcamp)
 
-router.route('/:id/photo').put(UploadBootcampPhoto)
+router.route('/:id/photo').put(Protect, UploadBootcampPhoto)
 
 module.exports = router
