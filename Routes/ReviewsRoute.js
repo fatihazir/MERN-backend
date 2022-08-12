@@ -5,12 +5,14 @@ const Review = require('../models/Review')
 
 const router = express.Router({ mergeParams: true })
 
+const { Protect, Authorize } = require('../middlewares/Auth')
+
 router.route('/')
     .get(advancedResults(Review, {
         path: 'bootcamp',
         select: 'name description'
     }), GetReviews)
-    .post(CreateReview)
+    .post(Protect, Authorize('user', 'admin'), CreateReview)
 
 router.route('/:id')
     .get(GetReview)
