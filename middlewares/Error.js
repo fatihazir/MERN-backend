@@ -8,7 +8,7 @@ const errorHandler = (err, req, res, next) => {
 
     // Mangoose bad ObjectId
     if (err.name === 'CastError') {
-        const message = `Entity not found with id of ${err.value}`
+        const message = `Entity not found`
         error = new ErrorResponse(message, 404)
     }
 
