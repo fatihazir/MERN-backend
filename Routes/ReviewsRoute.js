@@ -16,7 +16,7 @@ router.route('/')
 
 router.route('/:id')
     .get(GetReview)
-    .put(UpdateReview)
-    .delete(DeleteReview)
+    .put(Protect, Authorize('user', 'admin'), UpdateReview)
+    .delete(Protect, Authorize('user', 'admin'), DeleteReview)
 
 module.exports = router
