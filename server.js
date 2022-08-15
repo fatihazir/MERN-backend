@@ -14,10 +14,15 @@ const fileUpload = require('express-fileupload')
 const path = require('path')
 var cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
+var xss = require('xss-clean')
 
 ConnectDb()
 
 const app = express()
+
+//security headers
+app.use(helmet());
 
 //Body parser
 app.use(express.json())
@@ -35,6 +40,9 @@ app.use(fileUpload())
 
 //Sanitize data
 app.use(mongoSanitize())
+
+//prevent xss attacks
+app.use(xss())
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
