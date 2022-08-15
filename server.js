@@ -16,6 +16,9 @@ var cookieParser = require('cookie-parser')
 const mongoSanitize = require('express-mongo-sanitize')
 const helmet = require('helmet')
 var xss = require('xss-clean')
+var hpp = require('hpp');
+var rateLimit = require('express-rate-limit');
+const cors = require('cors')
 
 ConnectDb()
 
@@ -43,6 +46,19 @@ app.use(mongoSanitize())
 
 //prevent xss attacks
 app.use(xss())
+
+//Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100
+})
+app.use(limiter)
+
+//Prevent http param pollution
+app.use(hpp())
+
+//Enable cors
+app.use(cors())
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')))
