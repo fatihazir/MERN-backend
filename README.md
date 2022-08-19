@@ -1,3 +1,4 @@
+## A MERN stack backend project for remembering the best practices.
 # Devcamper API
 
 ## Postman docs: https://documenter.getpostman.com/view/13908293/VUjTk3og
